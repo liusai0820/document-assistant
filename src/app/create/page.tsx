@@ -4,8 +4,8 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import ModelSelector from '@/components/ModelSelector';
-import FileUploader from '@/components/FileUploader';
-import WordPreview from '@/components/WordPreview';
+import FileUploader from '@/components/FileUploader/index';
+import WordPreview from '@/components/WordPreview/index';
 
 // 文档类型定义
 interface DocumentType {

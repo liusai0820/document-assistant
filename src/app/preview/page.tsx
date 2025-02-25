@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import WordPreview from '@/components/WordPreview';
+import WordPreview from '@/components/WordPreview/index';
 import { documentTemplates } from '@/data/documentTemplates';
 
 // 文档类型接口
