@@ -1,36 +1,110 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 公文写作助手
 
-## Getting Started
+一个专为中文公文写作、预览和导出设计的Web应用，提供标准公文格式渲染、预览和PDF导出功能。
 
-First, run the development server:
+## 项目概述
 
+公文写作助手是一个基于Next.js的React应用，旨在帮助用户创建、预览和导出符合中国公文规范的文档。系统能够自动识别不同类型的公文（如报告、通知、会议纪要等），并应用相应的格式和样式。
+
+## 主要功能
+
+- **公文格式自动识别**：自动识别文档类型（报告、通知、红头文件等）
+- **标准公文格式渲染**：符合中国公文规范的格式化和排版
+- **文档预览**：所见即所得的文档预览功能
+- **PDF导出**：一键导出为PDF文件
+- **多种公文元素支持**：支持标题、章节标题、段落、日期、落款等公文元素
+
+## 开发历程
+
+本项目的开发经历了以下关键阶段：
+
+1. **初始探索阶段**：
+   - 最初尝试使用CKEditor进行文档渲染和编辑
+   - 遇到CKEditor的许可证和类型兼容性问题
+
+2. **方案调整阶段**：
+   - 转向使用原生HTML和CSS实现文档预览
+   - 开发自定义文档格式化逻辑
+
+3. **核心功能实现**：
+   - 实现文档类型自动识别
+   - 开发公文特定元素的格式化逻辑
+   - 添加PDF导出功能
+
+4. **样式优化阶段**：
+   - 优化公文标题、段落和章节样式
+   - 添加打印优化和媒体查询
+
+## 技术栈
+
+- **前端框架**：Next.js (React)
+- **语言**：TypeScript
+- **样式**：CSS-in-JS
+- **PDF导出**：html2pdf.js
+- **开发工具**：ESLint, TypeScript
+
+## 安装与运行
+
+### 前提条件
+
+- Node.js 16.x 或更高版本
+- npm 或 yarn
+
+### 安装步骤
+
+1. 克隆仓库：
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone [repository-url]
+cd document-assistant
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. 安装依赖：
+```bash
+npm install
+# 或
+yarn install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. 创建环境变量文件：
+```bash
+cp .env.local.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. 运行开发服务器：
+```bash
+npm run dev
+# 或
+yarn dev
+```
 
-## Learn More
+5. 打开浏览器访问：`http://localhost:3000`
 
-To learn more about Next.js, take a look at the following resources:
+## 使用指南
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. 在文本输入区域输入或粘贴公文内容
+2. 系统会自动识别文档类型并应用相应格式
+3. 在预览区查看格式化后的文档
+4. 使用"导出PDF"按钮将文档导出为PDF文件
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 公文格式支持
 
-## Deploy on Vercel
+本系统支持以下公文类型和格式：
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- **情况报告**：标题居中，正文段落首行缩进，章节编号（一、二、三、...）
+- **通知文件**：标题居中，正文格式规范
+- **红头文件**：顶部红色区域，标题居中，规范格式
+- **会议纪要**：标题居中，与会人员列表，会议内容段落
+- **请示文件**：标题居中，收文单位对齐方式特殊处理
+- **批复文件**：标题居中，正文格式处理
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 许可证
+
+[MIT License](LICENSE)
+
+## 贡献
+
+欢迎提交问题和功能请求！
+
+## 联系方式
+
+有任何问题或建议，请联系项目维护者。

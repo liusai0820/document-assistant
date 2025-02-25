@@ -1,3 +1,36 @@
+/* 添加中文字体引入 */
+@font-face {
+  font-family: 'FangSong';
+  src: url('https://fonts.cdnfonts.com/s/34448/fangsong.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SimSun';
+  src: url('https://fonts.cdnfonts.com/s/34462/simsun.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'KaiTi';
+  src: url('https://fonts.cdnfonts.com/s/34457/kaiti.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'SimHei';
+  src: url('https://fonts.cdnfonts.com/s/34461/simhei.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,4 +51,350 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* 添加打字机效果动画 */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+/* 打字机效果过渡 */
+.animate-typewriter {
+  opacity: 0;
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 设置markdown内容样式 */
+.markdown-body h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid #eaecef;
+}
+
+.markdown-body h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.3rem;
+}
+
+.markdown-body h3 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-top: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.markdown-body h4 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.markdown-body ul, .markdown-body ol {
+  padding-left: 2rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body ul {
+  list-style-type: disc;
+}
+
+.markdown-body ol {
+  list-style-type: decimal;
+}
+
+.markdown-body li {
+  margin-bottom: 0.25rem;
+}
+
+.markdown-body p {
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+  line-height: 1.7;
+}
+
+.markdown-body a {
+  color: #0366d6;
+  text-decoration: none;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body blockquote {
+  padding: 0 1rem;
+  color: #6a737d;
+  border-left: 0.25rem solid #dfe2e5;
+  margin: 1rem 0;
+}
+
+.markdown-body code {
+  padding: 0.2rem 0.4rem;
+  background-color: rgba(27, 31, 35, 0.05);
+  border-radius: 3px;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 85%;
+}
+
+.markdown-body pre {
+  padding: 1rem;
+  background-color: #f6f8fa;
+  border-radius: 3px;
+  overflow: auto;
+  margin: 1rem 0;
+}
+
+.markdown-body pre code {
+  padding: 0;
+  background-color: transparent;
+}
+
+/* Word文档预览样式 */
+.word-preview-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: #f3f4f6;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.word-preview-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #2563eb;
+  color: white;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.word-preview-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.word-preview-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.word-control-btn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 0.25rem;
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.word-control-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.word-control-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.word-preview-ruler {
+  height: 15px;
+  background-color: #e5e7eb;
+  border-bottom: 1px solid #d1d5db;
+  position: relative;
+}
+
+.ruler-marks {
+  height: 100%;
+  background-image: repeating-linear-gradient(
+    to right,
+    #9ca3af,
+    #9ca3af 1px,
+    transparent 1px,
+    transparent 10px
+  );
+}
+
+.word-preview-document {
+  flex: 1;
+  overflow: auto;
+  padding: 1rem;
+  background-color: #e5e7eb;
+}
+
+.word-document-page {
+  background-color: white;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  padding: 2.5cm 2cm;
+  margin: 0 auto;
+  min-height: 29.7cm;
+  width: 21cm;
+  position: relative;
+}
+
+.word-document-content {
+  font-family: 'SimSun', serif;
+  font-size: 12pt;
+  line-height: 1.5;
+  color: #000;
+}
+
+.word-document-content h1 {
+  font-family: 'SimSun', serif;
+  font-size: 22pt;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 24pt;
+}
+
+.word-document-content h2 {
+  font-family: 'SimHei', sans-serif;
+  font-size: 16pt;
+  font-weight: bold;
+  margin-top: 18pt;
+  margin-bottom: 12pt;
+}
+
+.word-document-content h3 {
+  font-family: 'KaiTi', serif;
+  font-size: 15pt;
+  font-weight: bold;
+  margin-top: 16pt;
+  margin-bottom: 10pt;
+}
+
+.word-document-content p {
+  font-family: 'FangSong', serif;
+  text-indent: 2em;
+  margin-bottom: 10pt;
+}
+
+.word-document-content ul,
+.word-document-content ol {
+  margin-left: 2em;
+  margin-bottom: 10pt;
+}
+
+.word-document-content li {
+  font-family: 'FangSong', serif;
+  margin-bottom: 5pt;
+}
+
+.cursor-indicator {
+  position: absolute;
+  width: 2px;
+  height: 18px;
+  background-color: #000;
+  animation: blink 1s step-end infinite;
+  bottom: 10px;
+  right: 10px;
+}
+
+.typing-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.typing-indicator span {
+  width: 8px;
+  height: 8px;
+  margin: 0 2px;
+  background-color: #2563eb;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typing 1.4s ease-in-out infinite;
+}
+
+.typing-indicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typing-indicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+.word-preview-statusbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 1rem;
+  background-color: #f9fafb;
+  border-top: 1px solid #d1d5db;
+  font-size: 0.75rem;
+  color: #4b5563;
+}
+
+.statusbar-item {
+  display: flex;
+  align-items: center;
+}
+
+/* 打字机光标效果 */
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  background-color: #000;
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+/* 打字机文本效果 */
+.typewriter-text {
+  display: inline-block;
+  overflow: hidden;
+  border-right: 2px solid #000;
+  white-space: nowrap;
+  animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: #000 }
 }
