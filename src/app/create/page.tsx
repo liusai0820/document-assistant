@@ -1,11 +1,21 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import ModelSelector from '@/components/ModelSelector';
-import FileUploader from '@/components/FileUploader/index';
-import WordPreview from '@/components/WordPreview/index';
+
+// 动态导入客户端组件
+const FileUploader = dynamic(() => import('@/components/FileUploader'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse p-4 h-24 bg-gray-100">加载文件上传组件...</div>
+});
+
+const WordPreview = dynamic(() => import('@/components/WordPreview'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse p-4 h-96 bg-gray-100">加载预览组件...</div>
+});
 
 // 文档类型定义
 interface DocumentType {
@@ -526,7 +536,8 @@ const presetOptions: Record<string, Record<string, PresetCategory[]>> = {
   }
 };
 
-export default function CreateDocument() {
+// 内部组件处理所有状态
+function CreateDocumentContent() {
   const searchParams = useSearchParams();
   
   // 状态管理
@@ -1352,5 +1363,18 @@ export default function CreateDocument() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// 主导出组件
+export default function CreateDocument() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    }>
+      <CreateDocumentContent />
+    </Suspense>
   );
 } 

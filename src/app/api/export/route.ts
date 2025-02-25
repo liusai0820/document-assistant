@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { Document, Packer, Paragraph, TextRun, HeadingLevel, AlignmentType } from 'docx';
 import * as pdfMake from 'pdfmake/build/pdfmake';
 import * as pdfFonts from 'pdfmake/build/vfs_fonts';
-import { chineseFonts } from 'pdfmake-chinese';
 
 // 确保pdfMake使用内置的字体
 // 使用类型断言处理
@@ -15,20 +14,32 @@ interface PDFMakeWithVFS {
 
 // 修复pdfFonts导入问题
 const pdfMakeWithVfs = pdfMake as unknown as PDFMakeWithVFS;
-// 使用中文字体包
+// 使用标准字体
 try {
-  // 尝试使用中文字体包
-  pdfMakeWithVfs.vfs = chineseFonts.vfs;
-  console.log('成功加载中文字体包');
-} catch (error) {
-  // 回退到标准字体
-  console.warn('无法加载中文字体包，尝试使用标准字体:', error);
-  if (pdfFonts && pdfFonts.pdfMake && pdfFonts.pdfMake.vfs) {
+  // 先尝试使用pdfFonts
+  if (pdfFonts && typeof pdfFonts === 'object' && 'pdfMake' in pdfFonts && pdfFonts.pdfMake && pdfFonts.pdfMake.vfs) {
     pdfMakeWithVfs.vfs = pdfFonts.pdfMake.vfs;
+    console.log('成功加载标准字体包');
   } else {
     console.warn('无法读取pdfFonts.pdfMake.vfs, 使用默认空对象');
     pdfMakeWithVfs.vfs = {}; // 使用空对象防止报错
   }
+  
+  // 然后尝试动态导入中文字体（仅在客户端使用）
+  if (typeof window !== 'undefined') {
+    import('pdfmake-chinese').then(({ chineseFonts }) => {
+      if (chineseFonts && chineseFonts.vfs) {
+        pdfMakeWithVfs.vfs = { ...pdfMakeWithVfs.vfs, ...chineseFonts.vfs };
+        console.log('成功加载中文字体包');
+      }
+    }).catch(err => {
+      console.warn('加载中文字体包失败:', err);
+    });
+  }
+} catch (error) {
+  // 回退到空字体
+  console.warn('字体初始化失败:', error);
+  pdfMakeWithVfs.vfs = {}; // 使用空对象防止报错
 }
 
 // 最大内容长度，超过此长度的内容将被分块处理

@@ -1,10 +1,16 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams, useRouter } from 'next/navigation';
-import WordPreview from '@/components/WordPreview/index';
+import dynamic from 'next/dynamic';
 import { documentTemplates } from '@/data/documentTemplates';
+
+// 动态导入客户端组件，禁用SSR
+const WordPreview = dynamic(() => import('@/components/WordPreview'), { 
+  ssr: false, 
+  loading: () => <div className="animate-pulse p-4 h-96 bg-gray-100">加载预览组件...</div>
+});
 
 // 文档类型接口
 interface DocumentData {
@@ -16,7 +22,8 @@ interface DocumentData {
   content: string;
 }
 
-export default function PreviewPage() {
+// 添加一个内部组件来处理搜索参数
+function PreviewContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [documentData, setDocumentData] = useState<DocumentData | null>(null);
@@ -84,7 +91,7 @@ export default function PreviewPage() {
     // 默认返回文档列表
     return '/documents';
   };
-
+  
   // 导出文档
   const handleExport = async (format: 'docx' | 'pdf') => {
     if (!documentData && !templateContent) return;
@@ -203,5 +210,18 @@ export default function PreviewPage() {
         </div>
       </footer>
     </div>
+  );
+}
+
+// 主导出组件
+export default function PreviewPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    }>
+      <PreviewContent />
+    </Suspense>
   );
 } 
